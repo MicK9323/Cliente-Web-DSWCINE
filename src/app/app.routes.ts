@@ -9,8 +9,8 @@ import { NgModule } from '@angular/core';
 const routes: Routes = [
   {path: 'home', component: HomeComponent},
   {path: 'reservar', component: ReservarComponent},
-  {path: 'registrar', component: RegistrarComponent},
-  {path: 'confirmar', component: ConfirmarComponent},
+  {path: 'registrar/:id', component: RegistrarComponent},
+  {path: 'confirmar/:id', component: ConfirmarComponent},
   {path: '**', pathMatch: 'full', redirectTo: 'home'}
 ];
 

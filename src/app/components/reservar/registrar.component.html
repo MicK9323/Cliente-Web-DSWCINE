@@ -1,3 +1,88 @@
-<p>
-  registrar works!
-</p>
+<div class="card">
+  <h5 class="card-header">{{titulo.toUpperCase()}}</h5>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-6">
+        <h5>Datos de Función</h5>
+        <hr/>
+        <div class="form-group">
+          <label class="font-weight-bold">Pelicula:</label>
+          <div class="col-sm-12">
+            <label>{{funcion.nom_pelicula}}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="font-weight-bold">Sala:</label>
+          <div class="col-sm-12">
+            <label>{{funcion.num_sala}}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="font-weight-bold">Fecha de Función:</label>
+          <div class="col-sm-12">
+            <label>{{funcion.fecha}}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="font-weight-bold">Inicio:</label>
+          <div class="col-sm-12">
+            <label>{{funcion.inicio}}</label>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="font-weight-bold">Fin:</label>
+          <div class="col-sm-12">
+            <label>{{funcion.fin}}</label>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <h5>Datos de Cliente</h5>
+        <hr/>
+        <div class="form-group row">
+          <div class="col-sm-9">
+            <input type="text" #dni class="form-control" placeholder="DNI">
+          </div>
+          <div id="btnValidar" class="btn btn-outline-primary col-sm-2" (click)="validarCliente(dni.value)">
+            <i class="fas fa-check-circle"></i>
+          </div>
+        </div>
+        <ng-container *ngIf="cliente == null; else elseTemplate">
+          <div class="alert alert-info" role="alert">
+            Debe validar su DNI!!
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <div class="form-group">
+            <label class="font-weight-bold">Dni:</label>
+            <div class="col-sm-12">
+              <label>{{cliente.dni}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="font-weight-bold">Cliente:</label>
+            <div class="col-sm-12">
+              <label>{{cliente.nom_clie}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="font-weight-bold">Correo:</label>
+            <div class="col-sm-12">
+              <label>{{cliente.correo}}</label>
+            </div>
+          </div>
+          <div class="form-group">
+            <button class="btn btn-block btn-outline-success" (click)="registrarReserva()">
+              <i class="fas fa-ticket-alt"></i> Reservar
+            </button>
+          </div>
+        </ng-template>
+        <div class="form-group">
+          <a class="btn btn-block btn-outline-primary" [routerLink]="['reservar']">
+            <i class="fas fa-home"></i> Regresar
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

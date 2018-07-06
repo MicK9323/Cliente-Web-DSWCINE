@@ -1,3 +1,5 @@
+import { Reserva } from './../classes/reserva';
+import { Cliente } from './../classes/cliente';
 import { Funcion } from './../classes/funcion';
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
@@ -16,7 +18,7 @@ export class ReservaService {
   private ENDPOINT: String = 'http://webapirestcine.azurewebsites.net/api';
 
   // Headers
-  private headers = new HttpHeaders({'Content-Type': 'application-json'});
+  // private headers = new HttpHeaders({'Content-Type': 'application-json'});
 
   constructor(
     private _httpClient: HttpClient
@@ -49,14 +51,43 @@ export class ReservaService {
     );
   }
 
+  // validar dni de cliente
+  validarCliente(dni: string): Observable<Cliente> {
+    let api = `${this.ENDPOINT}/consultacliente?dni=${dni}`;
+    return this._httpClient.get(api).pipe(
+      map( response => {
+        if (response == null) {
+          return null;
+        } else {
+          return response as Cliente;
+        }
+      })
+    );
+  }
+
+  // Registrar Reserva
+  registrarReserva(funcion: string, dni: string): Observable<string> {
+    let api = `${this.ENDPOINT}/registroreserva?funcion=${funcion}&dni=${dni}`;
+    return this._httpClient.post(api, null).pipe(
+      map( response => response as string )
+    );
+  }
+
+  // Consultar Reserva
+  confirmarReserva(id: string): Observable<Reserva> {
+    let api = `${this.ENDPOINT}/consultareserva?id=${id}`;
+    return this._httpClient.get(api).pipe(
+      map( response => response as Reserva )
+    );
+  }
+
   // Buscar funcion dentro del arreglo de funciones
-  buscarFuncion(id): Funcion {
-    let funcion: Funcion;
+  buscarFuncion(id: string): Funcion {
     for (let item of this.funciones) {
-      if (item.id === id) {
-        funcion = item;
+      let _id = item.id_funcion;
+      if (_id == id) {
+        return item;
       }
     }
-    return funcion;
   }
 }

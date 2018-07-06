@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Funcion } from './../../classes/funcion';
 import { ReservaService } from './../../services/reserva.service';
 import { Component, OnInit } from '@angular/core';
@@ -14,7 +15,10 @@ export class ReservarComponent implements OnInit {
   listaLocales: any[];
   listaFunciones: Funcion[] = null;
 
-  constructor( private _reservaService: ReservaService ) { }
+  constructor(
+    private _reservaService: ReservaService,
+    private _router: Router
+  ) { }
 
   ngOnInit() {
     this.listarFechas();
@@ -46,6 +50,11 @@ export class ReservarComponent implements OnInit {
         }
       }
     );
+  }
+
+  // Ver funcion
+  public verFuncion(id: string) {
+    this._router.navigate(['/registrar', id]);
   }
 
 }
