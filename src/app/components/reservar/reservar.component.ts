@@ -1,3 +1,4 @@
+import { Funcion } from './../../classes/funcion';
 import { ReservaService } from './../../services/reserva.service';
 import { Component, OnInit } from '@angular/core';
 
@@ -9,19 +10,40 @@ import { Component, OnInit } from '@angular/core';
 export class ReservarComponent implements OnInit {
 
   titulo: string = 'Buscar Funciones';
-  listaFechas: string[];
+  listaFechas: any[];
+  listaLocales: any[];
+  listaFunciones: Funcion[] = null;
 
   constructor( private _reservaService: ReservaService ) { }
 
   ngOnInit() {
     this.listarFechas();
+    this.listarLocales();
   }
 
+  // listar fechas
   public listarFechas() {
-    this._reservaService.getFechas().subscribe(
-      fechas => {
-        this.listaFechas = fechas;
-        console.log(this.listaFechas);
+    this._reservaService.obtenerFechas().subscribe(
+      fechas => this.listaFechas = fechas
+    );
+  }
+
+  // listar locales
+  public listarLocales() {
+    this._reservaService.obtenerLocales().subscribe(
+      locales => this.listaLocales = locales
+    );
+  }
+
+  // listar funciones
+  public buscarFunciones(fecha, local) {
+    this._reservaService.obtenerFunciones(fecha, local).subscribe(
+      funciones => {
+        if (funciones.length < 1) {
+          this.listaFunciones = null;
+        } else {
+          this.listaFunciones = funciones;
+        }
       }
     );
   }

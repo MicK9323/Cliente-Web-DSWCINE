@@ -1,3 +1,6 @@
+import { ReservaService } from './../../services/reserva.service';
+import { Cliente } from './../../classes/cliente';
+import { Funcion } from './../../classes/funcion';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,7 +10,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegistrarComponent implements OnInit {
 
-  constructor() { }
+  funcion: Funcion;
+  cliente: Cliente;
+
+  constructor( private _reservaService: ReservaService ) { }
 
   ngOnInit() {
   }

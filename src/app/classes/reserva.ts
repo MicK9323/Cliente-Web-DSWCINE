@@ -1,10 +1,10 @@
 export class Reserva {
-  nombre_peli: String;
-  nombre_local: String;
-  num_sala: Number;
-  um_fecha: String;
-  inicio: String;
-  fin: String;
-  dni: String;
-  nom_cliente: String;
+  nombre_peli: string;
+  nombre_local: string;
+  num_sala: number;
+  um_fecha: string;
+  inicio: string;
+  fin: string;
+  dni: string;
+  nom_cliente: string;
 }

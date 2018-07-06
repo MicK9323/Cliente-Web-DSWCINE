@@ -8,8 +8,9 @@
             <label class="control-label">Fechas:</label>
           </div>
           <div class="col-md-12">
-            <select class="form-control">
-              <option>Fecha 1</option>
+            <select #fecha name="fecha" class="form-control">
+              <option *ngFor="let fecha of listaFechas"
+                  [value]="fecha.Fecha">{{fecha.Fecha}}</option>
             </select>
           </div>
         </div>
@@ -20,21 +21,54 @@
             <label class="control-label">Locales:</label>
           </div>
           <div class="col-md-12">
-            <select class="form-control">
-              <option>Local 1</option>
+            <select #local class="form-control">
+              <option *ngFor="let local of listaLocales"
+                  [value]="local.id_local">{{local.nombre_local}}</option>
             </select>
           </div>
         </div>
       </div>
       <div class="col-md-4 pt-4">
-        <button class="btn btn-outline-primary">
+        <button class="btn btn-outline-primary"
+          (click)="buscarFunciones(fecha.value, local.value)">
           <i class="fas fa-search"></i> Consultar
         </button>
       </div>
     </div>
     <hr/>
-    <div class="row">
-      // TODO:Colocar tabla
+    <div class="row mt-4">
+      <div class="col-md-12">
+        <ng-container *ngIf="listaFunciones == null; else elseTemplate">
+          <div class="alert alert-info" role="alert">
+            No se encontraron funciones para esta fecha!!
+          </div>
+        </ng-container>
+        <ng-template #elseTemplate>
+          <h5>Hay {{listaFunciones.length}} funciones disponibles</h5>
+          <table class="table table-hover">
+            <thead class="thead-dark">
+              <tr>
+                <th>Pelicula</th>
+                <th>Sala</th>
+                <th>Inicio</th>
+                <th>Fin</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let funcion of listaFunciones">
+                <td>{{funcion.nom_pelicula}}</td>
+                <td>{{funcion.num_sala}}</td>
+                <td>{{funcion.inicio}}</td>
+                <td>{{funcion.fin}}</td>
+                <td>
+                  <button class="btn btn-outline-primary">Reservar</button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </ng-template>
+      </div>
     </div>
   </div>
 </div>
