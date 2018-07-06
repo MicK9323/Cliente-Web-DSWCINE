@@ -16,6 +16,7 @@ import { HomeComponent } from './components/home/home.component';
 
 // Servicios
 import { ReservaService } from './services/reserva.service';
+import { TicketPipe } from './pipes/ticket.pipe';
 
 
 @NgModule({
@@ -26,7 +27,8 @@ import { ReservaService } from './services/reserva.service';
     ConfirmarComponent,
     NavbarComponent,
     FooterComponent,
-    HomeComponent
+    HomeComponent,
+    TicketPipe
   ],
   imports: [
     BrowserModule,

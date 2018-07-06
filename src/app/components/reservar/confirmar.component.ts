@@ -1,7 +1,8 @@
 import { Reserva } from './../../classes/reserva';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ReservaService } from './../../services/reserva.service';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import * as jspdf from 'jspdf';
 
 @Component({
   selector: 'app-confirmar',
@@ -9,6 +10,8 @@ import { Component, OnInit } from '@angular/core';
   styles: []
 })
 export class ConfirmarComponent implements OnInit {
+
+  @ViewChild('ticket') ticket: ElementRef;
 
   titulo: string = 'Confirmación de Reserva';
   // Objeto para almacenar la confirmacion de la reserva
@@ -34,7 +37,22 @@ export class ConfirmarComponent implements OnInit {
   ngOnInit() {}
 
   public imprimir() {
+    let doc = new jspdf();
 
+    let elementHandler = {
+      '#editor': function( element, renderer ) {
+        return true;
+      }
+    };
+
+    let ticket = this.ticket.nativeElement;
+
+    doc.fromHTML(ticket.innerHTML, 15, 15, {
+      'width': 190,
+      'elementHandlers': elementHandler
+    });
+
+    doc.save('ticket.pdf');
   }
 
 }
